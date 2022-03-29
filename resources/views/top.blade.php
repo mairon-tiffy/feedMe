@@ -20,7 +20,23 @@
             }
         </style>
     </head>
-    <body class="">
+    <body>
+        <div class="message">
+            <h1>Unforgettable, immersive culinary experiences</h1>
+            <p>From home or abroad, join intimate culinary experiences led by passionate hosts and chefs that will take your breath away.</p>
+        </div>
+        <div class="search">
+            <label for="city">What are you looking for?</label>
+            <input type="text" id="city" name="city">
+            <label for="date">What are you looking for?</label>
+            <input type="date" id="date" name="date">
+            <label for="number">What are you looking for?</label>
+            <input type="text" id="number" name="number">
+        </div>
+        <div class="near_event_container">
+            <p>Experiences near me</p>
+            <div class="near_event"></div>
+        </div>
         
     </body>
 </html>
