@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('event_datails', function (Blueprint $table) {
+        Schema::create('event_details', function (Blueprint $table) {
             $table->id();
             $table->integer('event_id');
             $table->integer('number');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_datails');
+        Schema::dropIfExists('event_details');
     }
 };
