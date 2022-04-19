@@ -21,56 +21,56 @@
         </style>
     </head>
     <body>
-        <form action="{{route('events.store')}}" method="POST">
-        @csrf
+        <form action="{{route('events.update' , ['event' => $event['id']])}}" method="POST">
+            @csrf
             <div class="event_container">
                 <label for="title">Title of your event</label>
-                <input type="text" id="title" name="title">
+                <input type="text" id="title" name="title" value="{{ $event['title']}}">
                 <label for="event_type">Type of the event</label>
                     <select name="event_type">
-                        <option value="0">Dinner</option>
-                        <option value="1">Lunch</option>
-                        <option value="2">Brunch</option>
-                        <option value="3">Breakfast</option>
-                        <option value="4">Tea time</option>
-                        <option value="5">Picnic</option>
-                        <option value="6">Others</option>
+                        <option value="0" {{ $event['event_type'] == "0" ? 'selected' : '' }}>Dinner</option>
+                        <option value="1" {{ $event['event_type'] == "1" ? 'selected' : '' }}>Lunch</option>
+                        <option value="2" {{ $event['event_type'] == "2" ? 'selected' : '' }}>Brunch</option>
+                        <option value="3" {{ $event['event_type'] == "3" ? 'selected' : '' }}>Breakfast</option>
+                        <option value="4" {{ $event['event_type'] == "4" ? 'selected' : '' }}>Tea time</option>
+                        <option value="5" {{ $event['event_type'] == "5" ? 'selected' : '' }}>Picnic</option>
+                        <option value="6" {{ $event['event_type'] == "6" ? 'selected' : '' }}>Others</option>
                     </select>
                 <label for="cuisine_type">Type of the cuisine</label>
                     <select name="cuisine_type">
-                        <option value="0">Italian</option>
-                        <option value="1">French</option>
-                        <option value="2">Japanese</option>
-                        <option value="3">Greek</option>
-                        <option value="4">Mediterranean</option>
-                        <option value="5">Spanish</option>
-                        <option value="6">Mexican</option>
-                        <option value="7">Korean</option>
-                        <option value="8">Thai</option>
-                        <option value="9">Asian</option>
-                        <option value="10">Europian</option>
-                        <option value="11">African</option>
-                        <option value="12">Others</option>
+                        <option value="0" {{ $event['cuisine_type'] == "0" ? 'selected' : '' }}>Italian</option>
+                        <option value="1" {{ $event['cuisine_type'] == "1" ? 'selected' : '' }}>French</option>
+                        <option value="2" {{ $event['cuisine_type'] == "2" ? 'selected' : '' }}>Japanese</option>
+                        <option value="3" {{ $event['cuisine_type'] == "3" ? 'selected' : '' }}>Greek</option>
+                        <option value="4" {{ $event['cuisine_type'] == "4" ? 'selected' : '' }}>Mediterranean</option>
+                        <option value="5" {{ $event['cuisine_type'] == "5" ? 'selected' : '' }}>Spanish</option>
+                        <option value="6" {{ $event['cuisine_type'] == "6" ? 'selected' : '' }}>Mexican</option>
+                        <option value="7" {{ $event['cuisine_type'] == "7" ? 'selected' : '' }}>Korean</option>
+                        <option value="8" {{ $event['cuisine_type'] == "8" ? 'selected' : '' }}>Thai</option>
+                        <option value="9" {{ $event['cuisine_type'] == "9" ? 'selected' : '' }}>Asian</option>
+                        <option value="10" {{ $event['cuisine_type'] == "10" ? 'selected' : '' }}>Europian</option>
+                        <option value="11" {{ $event['cuisine_type'] == "11" ? 'selected' : '' }}>African</option>
+                        <option value="12" {{ $event['cuisine_type'] == "12" ? 'selected' : '' }}>Others</option>
                     </select>
                 <label for="special_diet">Special diet</label>
                     <select name="special_diet">
-                        <option value="0">Anything</option>
-                        <option value="1">Vegetalian</option>
-                        <option value="2">Vegan</option>
-                        <option value="3">Allergic to Gluten</option>
-                        <option value="4">Allergic to Nuts</option>
-                        <option value="5">Allergic to Shellfish</option>
-                        <option value="6">Allergic to Soy beans</option>
-                        <option value="7">No Pork</option>
-                        <option value="8">No Alchole</option>
+                        <option value="0" {{ $event['special_diet'] == "0" ? 'selected' : '' }}>Anything</option>
+                        <option value="1" {{ $event['special_diet'] == "1" ? 'selected' : '' }}>Vegetalian</option>
+                        <option value="2" {{ $event['special_diet'] == "2" ? 'selected' : '' }}>Vegan</option>
+                        <option value="3" {{ $event['special_diet'] == "3" ? 'selected' : '' }}>Allergic to Gluten</option>
+                        <option value="4" {{ $event['special_diet'] == "4" ? 'selected' : '' }}>Allergic to Nuts</option>
+                        <option value="5" {{ $event['special_diet'] == "5" ? 'selected' : '' }}>Allergic to Shellfish</option>
+                        <option value="6" {{ $event['special_diet'] == "6" ? 'selected' : '' }}>Allergic to Soy beans</option>
+                        <option value="7" {{ $event['special_diet'] == "7" ? 'selected' : '' }}>No Pork</option>
+                        <option value="8" {{ $event['special_diet'] == "8" ? 'selected' : '' }}>No Alchole</option>
                     </select>
                 <label for="number">Number of the guest</label>
-                    <input type="number">
-                    to<input type="number">
+                    <input type="number" value="{{ $event['number_from']}}">
+                    to<input type="number" value="{{ $event['number_to']}}">
                 <label for="content">A word about the experience</label>
                 <textarea name="content" id="content" cols="60" rows="5"></textarea>
                 <label for="place">Place</label>
-                <input type="text" id="place" name="place">
+                <input type="text" id="place" name="place" value="{{ $event['place']}}">
             </div>
             <div class="schedule">
                 <label for="avalable_date">date of the event</label>
@@ -81,17 +81,17 @@
             <div class="payment">
                 <label for="currecy_type">Currency</label>
                     <select name="currecy_type">
-                        <option value="0">USD</option>
-                        <option value="1">JPY</option>
-                        <option value="2">AUD</option>
-                        <option value="3">CAD</option>
-                        <option value="4">EUR</option>
-                        <option value="5">CNY</option>
-                        <option value="6">TWD</option>
-                        <option value="7">KRW</option>
-                        <option value="8">SEK</option>
-                        <option value="9">SGD</option>
-                        <option value="10">Others</option>
+                        <option value="0" {{ $event['currecy_type'] == "0" ? 'selected' : '' }}>USD</option>
+                        <option value="1" {{ $event['currecy_type'] == "1" ? 'selected' : '' }}>JPY</option>
+                        <option value="2" {{ $event['currecy_type'] == "2" ? 'selected' : '' }}>AUD</option>
+                        <option value="3" {{ $event['currecy_type'] == "3" ? 'selected' : '' }}>CAD</option>
+                        <option value="4" {{ $event['currecy_type'] == "4" ? 'selected' : '' }}>EUR</option>
+                        <option value="5" {{ $event['currecy_type'] == "5" ? 'selected' : '' }}>CNY</option>
+                        <option value="6" {{ $event['currecy_type'] == "6" ? 'selected' : '' }}>TWD</option>
+                        <option value="7" {{ $event['currecy_type'] == "7" ? 'selected' : '' }}>KRW</option>
+                        <option value="8" {{ $event['currecy_type'] == "8" ? 'selected' : '' }}>SEK</option>
+                        <option value="9" {{ $event['currecy_type'] == "9" ? 'selected' : '' }}>SGD</option>
+                        <option value="10" {{ $event['currecy_type'] == "10" ? 'selected' : '' }}>Others</option>
                     </select>
                 <label for="price">Price</label>
                 <input type="text" id="price">
