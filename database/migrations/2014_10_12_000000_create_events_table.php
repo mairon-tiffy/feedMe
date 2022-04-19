@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cuisine_type');
             $table->string('special_diet')->nullable();
             $table->timestamps();
-            $table->timestamp('delieted_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
