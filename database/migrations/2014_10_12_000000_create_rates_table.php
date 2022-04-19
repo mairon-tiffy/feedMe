@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('event_id');
+            $table->integer('rate');
             $table->longText('comment');
             $table->timestamps();
             $table->timestamp('delieted_at')->nullable();

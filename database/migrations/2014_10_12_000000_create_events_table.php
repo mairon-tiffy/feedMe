@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('content');
             $table->string('currecy_type');
             $table->string('cuisine_type');
-            $table->string('special_diet');
+            $table->string('special_diet')->nullable();
             $table->timestamps();
             $table->timestamp('delieted_at')->nullable();
         });
