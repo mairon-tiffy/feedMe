@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('event_id');
             $table->longText('comment');
             $table->timestamps();
-            $table->timestamp('delieted_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

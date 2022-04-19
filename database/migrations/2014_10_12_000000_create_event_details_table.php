@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('event_datails', function (Blueprint $table) {
+        Schema::create('event_details', function (Blueprint $table) {
             $table->id();
             $table->integer('event_id');
-            $table->integer('number');
+            $table->integer('number_from');
+            $table->integer('number_to');
             $table->date('avalable_date');
             $table->time('avalable_time');
             $table->string('place');
             $table->integer('price');
             $table->integer('event_type');
             $table->timestamps();
-            $table->timestamp('delieted_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_datails');
+        Schema::dropIfExists('event_details');
     }
 };
