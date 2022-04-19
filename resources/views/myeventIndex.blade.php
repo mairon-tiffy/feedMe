@@ -21,82 +21,10 @@
         </style>
     </head>
     <body>
-        <form action="{{route('events.store')}}" method="POST">
-        @csrf
-            <div class="event_container">
-                <label for="title">Title of your event</label>
-                <input type="text" id="title" name="title">
-                <label for="event_type">Type of the event</label>
-                    <select name="event_type">
-                        <option value="0">Dinner</option>
-                        <option value="1">Lunch</option>
-                        <option value="2">Brunch</option>
-                        <option value="3">Breakfast</option>
-                        <option value="4">Tea time</option>
-                        <option value="5">Picnic</option>
-                        <option value="6">Others</option>
-                    </select>
-                <label for="cuisine_type">Type of the cuisine</label>
-                    <select name="cuisine_type">
-                        <option value="0">Italian</option>
-                        <option value="1">French</option>
-                        <option value="2">Japanese</option>
-                        <option value="3">Greek</option>
-                        <option value="4">Mediterranean</option>
-                        <option value="5">Spanish</option>
-                        <option value="6">Mexican</option>
-                        <option value="7">Korean</option>
-                        <option value="8">Thai</option>
-                        <option value="9">Asian</option>
-                        <option value="10">Europian</option>
-                        <option value="11">African</option>
-                        <option value="12">Others</option>
-                    </select>
-                <label for="special_diet">Special diet</label>
-                    <select name="special_diet">
-                        <option value="0">Anything</option>
-                        <option value="1">Vegetalian</option>
-                        <option value="2">Vegan</option>
-                        <option value="3">Allergic to Gluten</option>
-                        <option value="4">Allergic to Nuts</option>
-                        <option value="5">Allergic to Shellfish</option>
-                        <option value="6">Allergic to Soy beans</option>
-                        <option value="7">No Pork</option>
-                        <option value="8">No Alchole</option>
-                    </select>
-                <label for="number">Number of the guest</label>
-                    <input type="number">
-                    to<input type="number">
-                <label for="content">A word about the experience</label>
-                <textarea name="content" id="content" cols="60" rows="5"></textarea>
-                <label for="place">Place</label>
-                <input type="text" id="place" name="place">
-            </div>
-            <div class="schedule">
-                <label for="avalable_date">date of the event</label>
-                <input type="date" id="avalable_date" name="avalable_date">
-                <label for="avalable_time">time of the event</label>
-                <input type="time" id="avalable_time" name="avalable_time">
-            </div>
-            <div class="payment">
-                <label for="currecy_type">Currency</label>
-                    <select name="currecy_type">
-                        <option value="0">USD</option>
-                        <option value="1">JPY</option>
-                        <option value="2">AUD</option>
-                        <option value="3">CAD</option>
-                        <option value="4">EUR</option>
-                        <option value="5">CNY</option>
-                        <option value="6">TWD</option>
-                        <option value="7">KRW</option>
-                        <option value="8">SEK</option>
-                        <option value="9">SGD</option>
-                        <option value="10">Others</option>
-                    </select>
-                <label for="price">Price</label>
-                <input type="text" id="price">
-            </div>
-            <button type='submit'>submit</button>
-        </form>
+        @foreach($events as $event)
+        <div class="eventIndex_container">
+            <a href="{{ route('events.edit',['event' => $event['id']])}}">update</a>
+        </div>
+        @endforeach
     </body>
 </html>
