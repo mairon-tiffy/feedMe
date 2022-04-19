@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('information');
             $table->rememberToken();
             $table->timestamps();
+            $table->timestamp('delieted_at')->nullable();
         });
     }
 
