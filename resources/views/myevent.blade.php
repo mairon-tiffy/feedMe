@@ -65,8 +65,8 @@
                         <option value="8">No Alchole</option>
                     </select>
                 <label for="number">Number of the guest</label>
-                    <input type="number">
-                    to<input type="number">
+                    <input type="number" name="number_from">
+                    to<input type="number" name="number_to">
                 <label for="content">A word about the experience</label>
                 <textarea name="content" id="content" cols="60" rows="5"></textarea>
                 <label for="place">Place</label>
@@ -94,7 +94,7 @@
                         <option value="10">Others</option>
                     </select>
                 <label for="price">Price</label>
-                <input type="text" id="price">
+                <input type="text" id="price" name="price">
             </div>
             <button type='submit'>submit</button>
         </form>
