@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\EventDetail;
+use DB;
 
 class EventController extends Controller
 {
@@ -21,6 +23,7 @@ class EventController extends Controller
             ->get();
 
         // dd($events);
+        
 
         return view('myeventIndex', compact('events'));
     }
@@ -43,7 +46,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        // var_dump($request->title);exit;
+
         DB::transaction(function() use($request){
+            
+            //☆Eventテーブル登録処理
             // Eventオブジェクト生成
             $event = new \App\Models\Event;
 
@@ -59,8 +66,15 @@ class EventController extends Controller
             // 保存
             $event->save();
 
+
+            //☆EventDetailテーブル登録処理
+
+            //eventID取得
+            $id = $event->id;
+            // var_dump($id);
+
             $event_detail = new \App\Models\EventDetail;
-            $event_detail->event_id	 = 11111111; //event_idを取得して入れる
+            $event_detail->event_id	 = $id; //event_idを取得して入れる
             $event_detail->number_from = $request->number_from;
             $event_detail->number_to = $request->number_to;
             $event_detail->avalable_date = $request->avalable_date;
@@ -74,7 +88,7 @@ class EventController extends Controller
         });
 
         // 一覧にリダイレクト
-        return redirect()->to('events/index');
+        return redirect()->to('events/');
     }
 
     /**
@@ -97,9 +111,12 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         // var_dump($event);
-        
 
-        return view('myeventUpdate', compact('event'));
+        //findOrFailを主キー以外で取得する（whereを使う）
+        $event_detail = EventDetail::where('event_id', $id)->firstOrFail();
+        // var_dump($event_detail);exit;
+
+        return view('myeventUpdate', compact('event', 'event_detail'));
 
 
     }
@@ -114,10 +131,35 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         DB::transaction(function() use($request, $id){
+
             $event_data = $request;
+
+            // echo('<pre>');
+            // var_dump($request->all());Exit;
+            // echo('</pre>');
+
             Event::where('id', $id)->update([
                 'content' => $event_data['content'],
+                'title' => $event_data['title'],
+                'currecy_type' => $event_data['currecy_type'],
+                'cuisine_type' => $event_data['cuisine_type'],
+                'special_diet' => $event_data['special_diet'],
+                
             ]);
+
+            EventDetail::where('event_id', $id)->update([
+                'number_from' => $event_data['number_from'],
+                'number_to' => $event_data['number_to'],
+                'avalable_date' => $event_data['avalable_date'],
+                'avalable_time' => $event_data['avalable_time'],
+                'place' => $event_data['place'],
+                'price' => $event_data['price'],
+                'event_type' => $event_data['event_type'],
+                
+            ]);
+        // 一覧にリダイレクト
+        return redirect()->to('events');
+
         });
     }
 
