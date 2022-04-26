@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventDetail;
+use App\Http\Requests\EventRequest;
 use DB;
 
 class EventController extends Controller
 {
+
+    //バリデーション
+    public function check(EventRequest $request)
+    {
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
