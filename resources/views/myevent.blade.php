@@ -21,11 +21,14 @@
         </style>
     </head>
     <body>
-        <form action="{{route('events.store')}}" method="POST">
+        <form action="{{route('events.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
             <div class="event_container">
                 <label for="title">Title of your event</label>
                 <input type="text" id="title" name="title">
+                @error('title')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <label for="event_type">Type of the event</label>
                     <select name="event_type">
                         <option value="0">Dinner</option>
@@ -66,17 +69,44 @@
                     </select>
                 <label for="number">Number of the guest</label>
                     <input type="number" name="number_from">
+
+                    @error('number_from')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
                     to<input type="number" name="number_to">
+
+                    @error('number_to')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
                 <label for="content">A word about the experience</label>
                 <textarea name="content" id="content" cols="60" rows="5"></textarea>
+                @error('content')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
                 <label for="place">Place</label>
                 <input type="text" id="place" name="place">
+                @error('text')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                
             </div>
             <div class="schedule">
                 <label for="avalable_date">date of the event</label>
                 <input type="date" id="avalable_date" name="avalable_date">
+                @error('avalable_date')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
                 <label for="avalable_time">time of the event</label>
                 <input type="time" id="avalable_time" name="avalable_time">
+                @error('avalable_time')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
             </div>
             <div class="payment">
                 <label for="currecy_type">Currency</label>
@@ -95,6 +125,16 @@
                     </select>
                 <label for="price">Price</label>
                 <input type="text" id="price" name="price">
+                @error('price')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                <input type="file" id="file" name="files[]" class="form-control" multiple>
+                <input type="file" id="file" name="files[]" class="form-control" multiple>
+                @error('files.*')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
             </div>
             <button type='submit'>submit</button>
         </form>
