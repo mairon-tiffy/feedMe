@@ -13,7 +13,7 @@ class EventRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,14 +24,16 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required',
-            'title' => 'required',
-            'number_from' => 'required|integer|min:1',
-            'number_to' => 'required|integer|min:1',
-            'avalable_date' => 'required',
-            'avalable_time' => 'required',
-            'place' => 'required|integer|min:0',
-            'price' => 'required',
+            // 'content' => 'required',
+            // 'title' => 'required',
+            // 'number_from' => 'required|integer|min:1',
+            // 'number_to' => 'required|integer|min:1|gte:number_from',
+            // 'avalable_date' => 'required',
+            // 'avalable_time' => 'required',
+            // 'place' => 'required|integer|min:0',
+            // 'price' => 'required',
+            // 'files.*' => 'mimetypes:image/png,image/jpeg',
+
         ];
     }
 

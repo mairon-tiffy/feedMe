@@ -5,16 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventDetail;
+use App\Models\Image;
 use App\Http\Requests\EventRequest;
 use DB;
 
 class EventController extends Controller
 {
-
-    //バリデーション
-    public function check(EventRequest $request)
-    {
-    }
 
     
     /**
@@ -49,51 +45,80 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\EventRequest  $request
+    //  * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
+    // public function store(Request $request)
     {
         // var_dump($request->title);exit;
+        dd($request->file('files'));
+        dd($request->file('file[0]')['filename']);
+        $request->file('file')->store('');
 
-        DB::transaction(function() use($request){
+
+        // DB::transaction(function() use($request){
+
             
-            //☆Eventテーブル登録処理
-            // Eventオブジェクト生成
-            $event = new \App\Models\Event;
+        //     //☆Eventテーブル登録処理
+        //     // Eventオブジェクト生成
+        //     $event = new \App\Models\Event;
 
-            // 値の登録
-            // $event->user_id = \Auth::id();
-            $event->user_id = 1;
-            $event->title = $request->title;
-            $event->content = $request->content;
-            $event->currecy_type = $request->currecy_type;
-            $event->cuisine_type = $request->cuisine_type;
-            $event->special_diet = $request->special_diet;
+        //     // 値の登録
+        //     // $event->user_id = \Auth::id();
+        //     $event->user_id = 1;
+        //     $event->title = $request->title;
+        //     $event->content = $request->content;
+        //     $event->currecy_type = $request->currecy_type;
+        //     $event->cuisine_type = $request->cuisine_type;
+        //     $event->special_diet = $request->special_diet;
 
-            // 保存
-            $event->save();
+        //     // 保存
+        //     $event->save();
 
 
-            //☆EventDetailテーブル登録処理
+        //     //☆EventDetailテーブル登録処理
 
-            //eventID取得
-            $id = $event->id;
-            // var_dump($id);
+        //     //eventID取得
+        //     $id = $event->id;
+        //     // var_dump($id);
 
-            $event_detail = new \App\Models\EventDetail;
-            $event_detail->event_id	 = $id; //event_idを取得して入れる
-            $event_detail->number_from = $request->number_from;
-            $event_detail->number_to = $request->number_to;
-            $event_detail->avalable_date = $request->avalable_date;
-            $event_detail->avalable_time = $request->avalable_time;
-            $event_detail->place = $request->place;
-            $event_detail->price = $request->price;
-            $event_detail->event_type = $request->event_type;
+        //     $event_detail = new \App\Models\EventDetail;
+        //     $event_detail->event_id	 = $id; //event_idを取得して入れる
+        //     $event_detail->number_from = $request->number_from;
+        //     $event_detail->number_to = $request->number_to;
+        //     $event_detail->avalable_date = $request->avalable_date;
+        //     $event_detail->avalable_time = $request->avalable_time;
+        //     $event_detail->place = $request->place;
+        //     $event_detail->price = $request->price;
+        //     $event_detail->event_type = $request->event_type;
 
-            $event_detail->save();
+        //     $event_detail->save();
 
-        });
+
+        //     //画像登録処理
+        //     $image = new \App\Models\Image;
+               //もし$formにimageデータがあったら
+                if ($request->file('files')) {
+                    // $fileにイメージデータを格納する
+                    $image->event_id = $id;
+                    $file = $request->file('image');
+                    // getClientOrientalExtension()でファイルの拡張子を取得する
+                    $extension = $file->getClientOriginalExtension();
+                    $file_token = Str::random(32);
+                    $filename = $file_token . '.' . $extension;
+                    // 表示を行うときに画像名が必要になるため、ファイル名を再設定
+                    $form['image'] = $filename;
+                    $file->move('uploads/books', $filename);
+                }
+
+            
+        //     $image->save();
+
+
+
+        // });
 
         // 一覧にリダイレクト
         return redirect()->to('events/');
