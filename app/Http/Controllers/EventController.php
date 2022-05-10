@@ -46,16 +46,13 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  App\Http\EventRequest  $request
-    //  * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(EventRequest $request)
-    // public function store(Request $request)
     {
         // var_dump($request->title);exit;
-        dd($request->file('files'));
-        dd($request->file('file[0]')['filename']);
-        $request->file('file')->store('');
+        // dd($request->file('files'));
+        
 
 
         // DB::transaction(function() use($request){
@@ -97,24 +94,40 @@ class EventController extends Controller
         //     $event_detail->save();
 
 
-        //     //画像登録処理
-        //     $image = new \App\Models\Image;
+            //画像登録処理
+            $image = new \App\Models\Image;
                //もし$formにimageデータがあったら
                 if ($request->file('files')) {
-                    // $fileにイメージデータを格納する
-                    $image->event_id = $id;
-                    $file = $request->file('image');
-                    // getClientOrientalExtension()でファイルの拡張子を取得する
-                    $extension = $file->getClientOriginalExtension();
-                    $file_token = Str::random(32);
-                    $filename = $file_token . '.' . $extension;
-                    // 表示を行うときに画像名が必要になるため、ファイル名を再設定
-                    $form['image'] = $filename;
-                    $file->move('uploads/books', $filename);
+                    $files = $request->file('files');
+                    // dd($files);
+
+                    foreach($files as $file){
+
+                        // var_dump($file);exit;
+
+                        $file_name = $file->getClientOriginalName();
+                        $file->storeAS('',$file_name);
+
+                        // $fileにイメージデータを格納する
+                        // $image->event_id = $id;
+                        $image->event_id = 1;
+                        $file = $request->file('image');
+                        // getClientOrientalExtension()でファイルの拡張子を取得する
+                        // $extension = $file->getClientOriginalExtension();
+                        $extension = $file->getMimeType();
+                        $file_token = Str::random(32);
+                        $filename = $file_token . '.' . $extension;
+                        $image->image = $filename;
+                        // 表示を行うときに画像名が必要になるため、ファイル名を再設定
+                        // $form['image'] = $filename;
+                        // $file->move('uploads/books', $filename);
+
+                        $image->save();
+                    }
                 }
 
             
-        //     $image->save();
+        //     
 
 
 
