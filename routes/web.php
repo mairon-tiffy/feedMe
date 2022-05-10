@@ -30,3 +30,4 @@ require __DIR__.'/auth.php';
 Route::get('/top', [TopController::class, 'show']);
 // Route::get('/myevent', [EventController::class, 'create']);
 Route::resource('events', EventController::class);
+Route::resource('users', UserController::class);
