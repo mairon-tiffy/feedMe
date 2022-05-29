@@ -19,6 +19,8 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
     <body>
         <form action="{{route('events.store')}}" method="POST" enctype="multipart/form-data">
@@ -128,15 +130,61 @@
                 @error('price')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+            </div>
 
+            <div class="img">
                 <input type="file" id="file" name="files[]" class="form-control" multiple>
-                <input type="file" id="file" name="files[]" class="form-control" multiple>
+                <input type="button" value="＋" class="add pluralBtn">
+                <input type="button" value="－" class="del pluralBtn">
+
                 @error('files.*')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+            </div>    
 
-            </div>
             <button type='submit'>submit</button>
         </form>
+        <!-- プレビュー -->
+        <img class="preview" width="200px">
+
+
+    <!-- <div id="input_pluralBox">
+        <div id="input_plural">
+            <input type="text" class="form-control" placeholder="サンプルテキストサンプルテキストサンプルテキスト">
+            <input type="button" value="＋" class="add pluralBtn">
+            <input type="button" value="－" class="del pluralBtn">
+        </div>
+    </div> -->
+
+
     </body>
 </html>
+
+
+<script>
+    $(function(){
+        $("[name='files[]']").on('change', function (e) {
+            console.log($(this));
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $(".preview").attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(e.target.files[0]);   
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on("click", ".add", function() {
+        $(this).parent().clone(true).insertAfter($(this).parent());
+    });
+    $(document).on("click", ".del", function() {
+        var target = $(this).parent();
+        if (target.parent().children().length > 1) {
+            target.remove();
+        }
+    });
+</script>

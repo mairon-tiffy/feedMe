@@ -9,6 +9,7 @@ use App\Models\Image;
 use App\Http\Requests\EventRequest;
 use Illuminate\Support\Str;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
