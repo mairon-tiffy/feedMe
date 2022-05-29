@@ -30,4 +30,7 @@ require __DIR__.'/auth.php';
 Route::get('/top', [TopController::class, 'show']);
 // Route::get('/myevent', [EventController::class, 'create']);
 Route::resource('events', EventController::class);
+Route::get('/users/firstChange', [UserController::class, 'firstChange'])->name('firstChange');
+Route::post('/users/firstChangeStore', [UserController::class, 'firstChangeStore'])->name('firstChange.store');
+Route::get('/users/userShow', [UserController::class, 'show'])->name('userShow');
 Route::resource('users', UserController::class);

@@ -96,8 +96,8 @@
                     </select>
                 <label for="price">Price</label>
                 <input type="text" id="price" name="price" value="{{ $event_detail['price']}}">
-                <img src="/storage/{{ $img['image']}}"></img>
-                <!-- <img src="{{ asset($img->path) }}"> -->
+                <!-- <img src="../storage/{{ $img['image']}}"></img> -->
+                <img src="{{ asset('storage/'.$img['image']) }}">
             </div>
             <button type='submit'>update</button>
         </form>

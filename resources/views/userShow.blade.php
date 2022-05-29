@@ -21,31 +21,17 @@
         </style>
     </head>
     <body>
-        <form action="{{route('firstChange.store')}}" method="POST">
-        @csrf
-            <div class="user_container">
-                <label for="country">Select your country</label>
-                <select name="country">
-                    <option value="0">Japan</option>
-                    <option value="1">United state</option>
-                    <option value="2">England</option>
-                    <option value="3">Austraria</option>
-                    <option value="4">Korea</option>
-                    <option value="5">CNY</option>
-                    <option value="6">TWD</option>
-                    <option value="7">KRW</option>
-                    <option value="8">SEK</option>
-                    <option value="9">SGD</option>
-                    <option value="10">Others</option>
-                </select><br>
-                <label for="information">About yourself</label>
-                <textarea name="information" id="information" cols="60" rows="5"></textarea>
-                <label for="user_type">Would you like to be host?</label>
-                <input type="radio" name="user_type" value="2">yes
-                <input type="radio" name="user_type" value="1">No
+        Your name : {{ $user[0]['name']}}<br>
+        Your country:{{ $user[0]['country']}}<br>
+        About yourself:{{ $user[0]['information']}}<br>
+        Your picture:<br>
 
-            </div>
-            <button type='submit'>submit</button>
-        </form>
+        <button>Create your event</button><br>
+
+        Your Events list
+
+
+
+
     </body>
 </html>
