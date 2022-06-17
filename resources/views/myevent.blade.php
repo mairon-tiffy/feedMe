@@ -132,10 +132,11 @@
                 @enderror
             </div>
 
-            <div class="img">
+            <div class="imageArea">
                 <input type="file" id="file" name="files[]" class="form-control" multiple>
                 <input type="button" value="＋" class="add pluralBtn">
                 <input type="button" value="－" class="del pluralBtn">
+                <img width="200px"></img>
 
                 @error('files.*')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -145,8 +146,8 @@
             <button type='submit'>submit</button>
         </form>
         <!-- プレビュー -->
-        <img class="preview" width="200px">
-
+        <div class="preview">
+        </div>
 
     <!-- <div id="input_pluralBox">
         <div id="input_plural">
@@ -164,14 +165,17 @@
 <script>
     $(function(){
         $("[name='files[]']").on('change', function (e) {
-            console.log($(this));
+            let $this = $(this);
             var reader = new FileReader();
             
             reader.onload = function (e) {
-                $(".preview").attr('src', e.target.result);
+                // $(".preview").attr('src', e.target.result);
+                // console.log($this.next().next().next());
+                $this.next().next().next().attr('src', e.target.result);
+                // $(this).next().next().attr('src', e.target.result);
             }
 
-            reader.readAsDataURL(e.target.files[0]);   
+            reader.readAsDataURL(e.target.files[0]);  
 
         });
     });
@@ -179,7 +183,14 @@
 
 <script type="text/javascript">
     $(document).on("click", ".add", function() {
-        $(this).parent().clone(true).insertAfter($(this).parent());
+        // let div = $(this).parent();
+        // div.children().first().val("");
+        
+        $(this).parent().clone(true).insertAfter($(this).parent()).children().first().val("");
+        console.log($(this).parent().next().find('img'));
+        $(this).parent().next().find('img').attr('src', "");
+        // $('.imageArea').append();
+
     });
     $(document).on("click", ".del", function() {
         var target = $(this).parent();

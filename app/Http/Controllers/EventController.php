@@ -97,13 +97,13 @@ class EventController extends Controller
 
 
             //画像登録処理
-            $image = new \App\Models\Image;
-               //もし$formにimageデータがあったら
-                if ($request->file('files')) {
-                    $files = $request->file('files');
-                    // dd($files);
-
-                    foreach($files as $file){
+            //もし$formにimageデータがあったら
+            if ($request->file('files')) {
+                $files = $request->file('files');
+                // dd($files);
+                
+                foreach($files as $file){
+                        $image = new \App\Models\Image;
 
                         // var_dump($file);exit;
 
@@ -137,6 +137,7 @@ class EventController extends Controller
 
                         $image->save();
                     }
+                    // echo '<pre>';var_dump($image);echo '</pre>';exit;
                 }
 
             
@@ -168,15 +169,20 @@ class EventController extends Controller
      */
     public function edit($id)
     {
+        // dd($event);
         $event = Event::findOrFail($id);
         // var_dump($event);
+        // dd($event->event_details[0]->price);
 
         //findOrFailを主キー以外で取得する（whereを使う）
-        $event_detail = EventDetail::where('event_id', $id)->firstOrFail();
-        // var_dump($event_detail);exit;
-
-        $img = Image::findOrFail($id);
-        // var_dump($img);exit;
+        // $event_detail = EventDetail::where('event_id', $id)->firstOrFail();
+        $event_detail = $event->event_details[0];
+        // echo '<pre>';
+        // var_dump($event->images);exit;
+        // echo '</pre>';
+        // $img = Image::where('event_id', $id)->firstOrFail();
+        $img = $event->images[0];
+        // echo '<pre>';var_dump($img);exit;echo '</pre>';
 
         return view('myeventUpdate', compact('event', 'event_detail','img'));
 

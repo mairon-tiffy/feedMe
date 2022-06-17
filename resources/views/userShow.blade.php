@@ -21,9 +21,9 @@
         </style>
     </head>
     <body>
-        Your name : {{ $user[0]['name']}}<br>
-        Your country:{{ $user[0]['country']}}<br>
-        About yourself:{{ $user[0]['information']}}<br>
+        Your name : {{ $user['name']}}<br>
+        Your country:{{ $user['country']}}<br>
+        About yourself:{{ $user['information']}}<br>
         Your picture:<br>
 
         <button>Create your event</button><br>

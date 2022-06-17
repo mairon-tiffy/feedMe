@@ -87,10 +87,12 @@ class UserController extends Controller
 
         $user = User::
             where('id', '=', $id)
-            ->get();
+            ->first();
 
+        // $user = array_column($user, 0);
         // echo('<pre>');
-        // var_dump($user[0]["name"]);exit;
+        // var_dump($user["name"]);exit;
+        // // var_dump($user);exit;
         // echo('</pre>');
         
         return view('userShow', compact('user'));
