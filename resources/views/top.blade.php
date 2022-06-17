@@ -25,14 +25,80 @@
             <h1>Unforgettable, immersive culinary experiences</h1>
             <p>From home or abroad, join intimate culinary experiences led by passionate hosts and chefs that will take your breath away.</p>
         </div>
-        <div class="search">
-            <label for="city">What are you looking for?</label>
-            <input type="text" id="city" name="city">
-            <label for="date">What are you looking for?</label>
-            <input type="date" id="date" name="date">
-            <label for="number">What are you looking for?</label>
-            <input type="text" id="number" name="number">
-        </div>
+        <form class="search" action="{{ route('search') }}" method="post">
+            @csrf
+            <input type="text" name="freeword" placeholder="Search for cities...">
+            <select name="cuisine_type">
+                <option value="" disabled selected style="display:none;">Cuisine Type</option>
+                <option value="0">Italian</option>
+                <option value="1">French</option>
+                <option value="2">Japanese</option>
+                <option value="3">Greek</option>
+                <option value="4">Mediterranean</option>
+                <option value="5">Spanish</option>
+                <option value="6">Mexican</option>
+                <option value="7">Korean</option>
+                <option value="8">Thai</option>
+                <option value="9">Asian</option>
+                <option value="10">Europian</option>
+                <option value="11">African</option>
+                <option value="12">Others</option>
+            </select>
+            <input type="date" id="date" name="date" placeholder="Date">
+            <select name="guest">
+                <option value="" disabled selected style="display:none;">Guest</option>
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+                <option value="5">6</option>
+                <option value="6">7</option>
+                <option value="7">8</option>
+                <option value="8">9</option>
+                <option value="9">10</option>
+                <option value="10">11-20</option>
+                <option value="11">21-30</option>
+                <option value="12">31-40</option>
+                <option value="13">41-50</option>
+                <option value="14">50-</option>
+            </select>
+            <select name="event_type">
+                <option value="" disabled selected style="display:none;">Event Type</option>
+                <option value="0">Dinner</option>
+                <option value="1">Lunch</option>
+                <option value="2">Brunch</option>
+                <option value="3">Breakfast</option>
+                <option value="4">Tea time</option>
+                <option value="5">Picnic</option>
+                <option value="6">Others</option>
+            </select>
+            <select name="special_diet">
+                <option value="" disabled selected style="display:none;">Special Diet</option>
+                <option value="0">Anything</option>
+                <option value="1">Vegetalian</option>
+                <option value="2">Vegan</option>
+                <option value="3">Allergic to Gluten</option>
+                <option value="4">Allergic to Nuts</option>
+                <option value="5">Allergic to Shellfish</option>
+                <option value="6">Allergic to Soy beans</option>
+                <option value="7">No Pork</option>
+                <option value="8">No Alchole</option>
+            </select>
+
+            <button>search</button>
+        </form>
+        
+        @if(isset($events))
+            <div class="event_result_container">
+                @foreach($events as $event)
+                    {{$event['cuisine_type']}}
+                    {{$event['event_type']}}
+                    {{$event['special_diet']}}
+                    <br>
+                @endforeach
+            </div>
+        @endif
         <div class="near_event_container">
             <p>Experiences near me</p>
             <div class="near_event"></div>
@@ -40,3 +106,5 @@
         
     </body>
 </html>
+
+
