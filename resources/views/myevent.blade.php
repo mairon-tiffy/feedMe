@@ -31,7 +31,7 @@
                 @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <label for="event_type">Type of the event</label>
+                <!-- <label for="event_type">Type of the event</label>
                     <select name="event_type">
                         <option value="0">Dinner</option>
                         <option value="1">Lunch</option>
@@ -40,7 +40,7 @@
                         <option value="4">Tea time</option>
                         <option value="5">Picnic</option>
                         <option value="6">Others</option>
-                    </select>
+                    </select> -->
                 <label for="cuisine_type">Type of the cuisine</label>
                     <select name="cuisine_type">
                         <option value="0">Italian</option>
@@ -69,7 +69,7 @@
                         <option value="7">No Pork</option>
                         <option value="8">No Alchole</option>
                     </select>
-                <label for="number">Number of the guest</label>
+                <!-- <label for="number">Number of the guest</label>
                     <input type="number" name="number_from">
 
                     @error('number_from')
@@ -80,7 +80,7 @@
 
                     @error('number_to')
                         <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                    @enderror -->
 
                 <label for="content">A word about the experience</label>
                 <textarea name="content" id="content" cols="60" rows="5"></textarea>
@@ -88,15 +88,15 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
 
-                <label for="place">Place</label>
+                <!-- <label for="place">Place</label>
                 <input type="text" id="place" name="place">
                 @error('text')
                     <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                @enderror -->
 
                 
             </div>
-            <div class="schedule">
+            <!-- <div class="schedule">
                 <label for="avalable_date">date of the event</label>
                 <input type="date" id="avalable_date" name="avalable_date">
                 @error('avalable_date')
@@ -109,7 +109,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
 
-            </div>
+            </div> -->
             <div class="payment">
                 <label for="currecy_type">Currency</label>
                     <select name="currecy_type">
@@ -125,11 +125,11 @@
                         <option value="9">SGD</option>
                         <option value="10">Others</option>
                     </select>
-                <label for="price">Price</label>
+                <!-- <label for="price">Price</label>
                 <input type="text" id="price" name="price">
                 @error('price')
                     <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                @enderror -->
             </div>
 
             <div class="imageArea">

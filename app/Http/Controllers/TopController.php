@@ -27,43 +27,76 @@ class TopController extends Controller
     {
         // $id = Auth::id();
         // echo('<pre>');
-        // var_dump($request->cuisineType);Exit;
+        // var_dump($request->date);Exit;
         // echo('</pre>');
         $posts = $request->freeword;
         $cuisineType = $request->cuisine_type;
-        // $date = $request->date;
+        $date = $request->date;
         $guest = $request->guest;
         $eventType = $request->event_type;
         $specialDiet = $request->special_diet;
+
+        // echo '<pre>';
+        // var_dump($date);exit;
+        // echo '</pre>';
+
 
         $events = EVENT::select('events.*','detail.*')
             // ->from('events as events')
             ->join('event_details as detail', function($join) {
                 $join->on('detail.event_id', '=', 'events.id');
-            })
-            ->where('freeword', 'LIKE','%'.$posts.'%')
-            ->where('cuisine_type', '=',$cuisineType)
-            // ->orwhere('number_from', '<=',$guest,'>=','number_to')
-            ->orwhere('event_type', '=',$eventType)
-            ->orwhere('special_diet', '=',$specialDiet)
-            // ->orwhere('available_date', '=',$date)
-            //↓SQL文を確認する
-            // ->toSql();
-            ->get();
+            });
 
-        echo '<pre>';
-        var_dump($events);exit;
-        echo '</pre>';
+        if(!empty($posts)){
+            $events = $events->where('content', 'LIKE','%'.$posts.'%');
+        }
 
-            $eventType = [    
-                '0' => 'Dinner',
-                '1' =>'Lunch',
-                '2' => 'Brunch',
-                '3' => 'Breakfast',
-                '4' => 'Tea time',
-                '5' => 'Picnic',
-                '6' => 'Others',
-            ];
+        if($cuisineType !== ''){
+            $events = $events->where('cuisine_type', '=',$cuisineType);
+        }
+
+        if(!empty($eventType)){
+            $events = $events->where('event_type', '=',$eventType);
+        }
+
+        if(!empty($specialDiet)){
+            $events = $events->where('special_diet', '=',$specialDiet);
+        }
+
+        if(!empty($date)){
+            $events = $events->where('avalable_date', '=',$date);
+        }
+
+
+
+        
+        // $events = EVENT::select('events.*','detail.*')
+        //     ->join('event_details as detail', function($join) {
+        //         $join->on('detail.event_id', '=', 'events.id');
+        //     })
+        //     ->where('cuisine_type', '=',$cuisineType)
+        //     // ->where('number_from', '<=',$guest,'>=','number_to')
+        //     ->where('event_type', '=',$eventType)
+        //     ->where('special_diet', '=',$specialDiet)
+        //     ->where('avalable_date', '=',$date)
+        //     ->get();
+
+        $events = $events->get();
+        // $events = $events->toSql();
+
+        // echo '<pre>';
+        // var_dump($events);exit;
+        // echo '</pre>';
+
+            // $eventType = [    
+            //     '0' => 'Dinner',
+            //     '1' =>'Lunch',
+            //     '2' => 'Brunch',
+            //     '3' => 'Breakfast',
+            //     '4' => 'Tea time',
+            //     '5' => 'Picnic',
+            //     '6' => 'Others',
+            // ];
 
 
             // echo('<pre>');

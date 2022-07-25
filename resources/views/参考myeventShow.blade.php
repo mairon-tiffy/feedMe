@@ -21,63 +21,38 @@
         </style>
     </head>
     <body>
-        <form action="{{route('events.update' , ['event' => $event['id']])}}" method="POST">
-            @csrf
-            @method('PATCH')
             <div class="event_container">
                 <label for="title">Title of your event</label>
-                <input type="text" id="title" name="title" value="{{ $event['title']}}">
+                    {{ $event['title']}}
+                <!-- <label for="event_type">Type of the event</label>
+                    {{ $event_detail['event_type']}} -->
                 <label for="cuisine_type">Type of the cuisine</label>
-                    <select name="cuisine_type">
-                        <option value="0" {{ $event['cuisine_type'] == "0" ? 'selected' : '' }}>Italian</option>
-                        <option value="1" {{ $event['cuisine_type'] == "1" ? 'selected' : '' }}>French</option>
-                        <option value="2" {{ $event['cuisine_type'] == "2" ? 'selected' : '' }}>Japanese</option>
-                        <option value="3" {{ $event['cuisine_type'] == "3" ? 'selected' : '' }}>Greek</option>
-                        <option value="4" {{ $event['cuisine_type'] == "4" ? 'selected' : '' }}>Mediterranean</option>
-                        <option value="5" {{ $event['cuisine_type'] == "5" ? 'selected' : '' }}>Spanish</option>
-                        <option value="6" {{ $event['cuisine_type'] == "6" ? 'selected' : '' }}>Mexican</option>
-                        <option value="7" {{ $event['cuisine_type'] == "7" ? 'selected' : '' }}>Korean</option>
-                        <option value="8" {{ $event['cuisine_type'] == "8" ? 'selected' : '' }}>Thai</option>
-                        <option value="9" {{ $event['cuisine_type'] == "9" ? 'selected' : '' }}>Asian</option>
-                        <option value="10" {{ $event['cuisine_type'] == "10" ? 'selected' : '' }}>Europian</option>
-                        <option value="11" {{ $event['cuisine_type'] == "11" ? 'selected' : '' }}>African</option>
-                        <option value="12" {{ $event['cuisine_type'] == "12" ? 'selected' : '' }}>Others</option>
-                    </select>
+                    {{ $event['cuisine_type']}}
                 <label for="special_diet">Special diet</label>
-                    <select name="special_diet">
-                        <option value="0" {{ $event['special_diet'] == "0" ? 'selected' : '' }}>Anything</option>
-                        <option value="1" {{ $event['special_diet'] == "1" ? 'selected' : '' }}>Vegetalian</option>
-                        <option value="2" {{ $event['special_diet'] == "2" ? 'selected' : '' }}>Vegan</option>
-                        <option value="3" {{ $event['special_diet'] == "3" ? 'selected' : '' }}>Allergic to Gluten</option>
-                        <option value="4" {{ $event['special_diet'] == "4" ? 'selected' : '' }}>Allergic to Nuts</option>
-                        <option value="5" {{ $event['special_diet'] == "5" ? 'selected' : '' }}>Allergic to Shellfish</option>
-                        <option value="6" {{ $event['special_diet'] == "6" ? 'selected' : '' }}>Allergic to Soy beans</option>
-                        <option value="7" {{ $event['special_diet'] == "7" ? 'selected' : '' }}>No Pork</option>
-                        <option value="8" {{ $event['special_diet'] == "8" ? 'selected' : '' }}>No Alchole</option>
-                    </select>
+                    {{ $event['special_diet'] }}
+                <!-- <label for="number">Number of the guest</label>
+                    from{{ $event_detail['number_from']}}
+                    to{{ $event_detail['number_to']}} -->
                 <label for="content">A word about the experience</label>
-                <textarea name="content" id="content" cols="60" rows="5" >{{ $event['content']}}</textarea>
+                    {{ $event['content']}}
+                <!-- <label for="place">Place</label>
+                    {{ $event_detail['place']}} -->
             </div>
+            <!-- <div class="schedule">
+                <label for="avalable_date">date of the event</label>
+                    {{ $event_detail['avalable_date']}}
+                <label for="avalable_time">time of the event</label>
+                    {{ $event_detail['avalable_time']}}
+            </div> -->
             <div class="payment">
                 <label for="currecy_type">Currency</label>
-                    <select name="currecy_type">
-                        <option value="0" {{ $event['currecy_type'] == "0" ? 'selected' : '' }}>USD</option>
-                        <option value="1" {{ $event['currecy_type'] == "1" ? 'selected' : '' }}>JPY</option>
-                        <option value="2" {{ $event['currecy_type'] == "2" ? 'selected' : '' }}>AUD</option>
-                        <option value="3" {{ $event['currecy_type'] == "3" ? 'selected' : '' }}>CAD</option>
-                        <option value="4" {{ $event['currecy_type'] == "4" ? 'selected' : '' }}>EUR</option>
-                        <option value="5" {{ $event['currecy_type'] == "5" ? 'selected' : '' }}>CNY</option>
-                        <option value="6" {{ $event['currecy_type'] == "6" ? 'selected' : '' }}>TWD</option>
-                        <option value="7" {{ $event['currecy_type'] == "7" ? 'selected' : '' }}>KRW</option>
-                        <option value="8" {{ $event['currecy_type'] == "8" ? 'selected' : '' }}>SEK</option>
-                        <option value="9" {{ $event['currecy_type'] == "9" ? 'selected' : '' }}>SGD</option>
-                        <option value="10" {{ $event['currecy_type'] == "10" ? 'selected' : '' }}>Others</option>
-                    </select>
-                @foreach($event->images as $image)
-                    <img src="{{ asset('storage/'.$image['image']) }}">
-                @endforeach
+                    {{ $event['currecy_type']}}>
+                <!-- <label for="price">Price</label>
+                    {{ $event_detail['price']}}
+                <img src="{{ asset('storage/'.$img['image']) }}"> -->
             </div>
-            <button type='submit'>update</button>
-        </form>
+            <form action="{{route('message' , ['event' => $event['user_id']])}}" method="GET">
+                <button type='submit'>chat to host</button>
+            </form>
     </body>
 </html>
