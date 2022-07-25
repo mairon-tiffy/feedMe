@@ -83,17 +83,17 @@ class EventController extends Controller
             $id = $event->id;
             // var_dump($id);
 
-            $event_detail = new \App\Models\EventDetail;
-            $event_detail->event_id	 = $id; //event_idを取得して入れる
-            $event_detail->number_from = $request->number_from;
-            $event_detail->number_to = $request->number_to;
-            $event_detail->avalable_date = $request->avalable_date;
-            $event_detail->avalable_time = $request->avalable_time;
-            $event_detail->place = $request->place;
-            $event_detail->price = $request->price;
-            $event_detail->event_type = $request->event_type;
+            // $event_detail = new \App\Models\EventDetail;
+            // $event_detail->event_id	 = $id; //event_idを取得して入れる
+            // $event_detail->number_from = $request->number_from;
+            // $event_detail->number_to = $request->number_to;
+            // $event_detail->avalable_date = $request->avalable_date;
+            // $event_detail->avalable_time = $request->avalable_time;
+            // $event_detail->place = $request->place;
+            // $event_detail->price = $request->price;
+            // $event_detail->event_type = $request->event_type;
 
-            $event_detail->save();
+            // $event_detail->save();
 
 
             //画像登録処理
@@ -113,7 +113,7 @@ class EventController extends Controller
                         $file_token = Str::random(32);
                         $filename = $file_token . '.' . $extension;
 
-                        $file->storeAS('',$filename);
+                        $file->storeAS('public',$filename);
                         // var_dump($file);exit;
 
 
@@ -159,6 +159,12 @@ class EventController extends Controller
      */
     public function show($id)
     {
+        // $event = Event::findOrFail($id);
+        // var_dump($event);exit;
+
+        return view('myeventShow', [
+            'event' => Event::findOrFail($id)
+        ]);
     }
 
     /**
@@ -176,15 +182,19 @@ class EventController extends Controller
 
         //findOrFailを主キー以外で取得する（whereを使う）
         // $event_detail = EventDetail::where('event_id', $id)->firstOrFail();
-        $event_detail = $event->event_details[0];
+
+        //☆下記が必要
+        // $event_detail = $event->event_details[0];
+
         // echo '<pre>';
         // var_dump($event->images);exit;
         // echo '</pre>';
         // $img = Image::where('event_id', $id)->firstOrFail();
-        $img = $event->images[0];
-        // echo '<pre>';var_dump($img);exit;echo '</pre>';
+            // $img = $event->images[];
+            // echo '<pre>';var_dump($img);exit;echo '</pre>';
+        
+            return view('myeventUpdate', compact('event'));
 
-        return view('myeventUpdate', compact('event', 'event_detail','img'));
 
 
     }
@@ -230,6 +240,7 @@ class EventController extends Controller
 
         });
     }
+
 
     /**
      * Remove the specified resource from storage.

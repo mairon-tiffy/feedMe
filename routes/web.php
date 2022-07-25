@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ResultController;
 
 /*
@@ -29,10 +30,12 @@ require __DIR__.'/auth.php';
 
 Route::get('/top', [TopController::class, 'show']);
 Route::post('/top', [TopController::class, 'search'])->name('search');
-// Route::get('/myevent', [EventController::class, 'create']);
 Route::resource('events', EventController::class);
 Route::get('/users/firstChange', [UserController::class, 'firstChange'])->name('firstChange');
 Route::post('/users/firstChangeStore', [UserController::class, 'firstChangeStore'])->name('firstChange.store');
 Route::get('/users/userShow', [UserController::class, 'show'])->name('userShow');
 Route::resource('users', UserController::class);
+Route::get('/chat/message/{host_id}', [ChatController::class, 'message'])->name('message');
+Route::resource('chat', ChatController::class);
+
 

@@ -27,6 +27,16 @@
             <div class="event_container">
                 <label for="title">Title of your event</label>
                 <input type="text" id="title" name="title" value="{{ $event['title']}}">
+                <label for="event_type">Type of the event</label>
+                    <select name="event_type">
+                        <option value="0" {{ $event_detail['event_type'] == "0" ? 'selected' : '' }}>Dinner</option>
+                        <option value="1" {{ $event_detail['event_type'] == "1" ? 'selected' : '' }}>Lunch</option>
+                        <option value="2" {{ $event_detail['event_type'] == "2" ? 'selected' : '' }}>Brunch</option>
+                        <option value="3" {{ $event_detail['event_type'] == "3" ? 'selected' : '' }}>Breakfast</option>
+                        <option value="4" {{ $event_detail['event_type'] == "4" ? 'selected' : '' }}>Tea time</option>
+                        <option value="5" {{ $event_detail['event_type'] == "5" ? 'selected' : '' }}>Picnic</option>
+                        <option value="6" {{ $event_detail['event_type'] == "6" ? 'selected' : '' }}>Others</option>
+                    </select>
                 <label for="cuisine_type">Type of the cuisine</label>
                     <select name="cuisine_type">
                         <option value="0" {{ $event['cuisine_type'] == "0" ? 'selected' : '' }}>Italian</option>
@@ -55,8 +65,19 @@
                         <option value="7" {{ $event['special_diet'] == "7" ? 'selected' : '' }}>No Pork</option>
                         <option value="8" {{ $event['special_diet'] == "8" ? 'selected' : '' }}>No Alchole</option>
                     </select>
+                <label for="number">Number of the guest</label>
+                    <input type="number" name="number_from" value="{{ $event_detail['number_from']}}">
+                    to<input type="number" name="number_to" value="{{ $event_detail['number_to']}}">
                 <label for="content">A word about the experience</label>
                 <textarea name="content" id="content" cols="60" rows="5" >{{ $event['content']}}</textarea>
+                <label for="place">Place</label>
+                <input type="text" id="place" name="place" value="{{ $event_detail['place']}}">
+            </div>
+            <div class="schedule">
+                <label for="avalable_date">date of the event</label>
+                <input type="date" id="avalable_date" name="avalable_date" value="{{ $event_detail['avalable_date']}}">
+                <label for="avalable_time">time of the event</label>
+                <input type="time" id="avalable_time" name="avalable_time" value="{{ $event_detail['avalable_time']}}">
             </div>
             <div class="payment">
                 <label for="currecy_type">Currency</label>
@@ -73,6 +94,8 @@
                         <option value="9" {{ $event['currecy_type'] == "9" ? 'selected' : '' }}>SGD</option>
                         <option value="10" {{ $event['currecy_type'] == "10" ? 'selected' : '' }}>Others</option>
                     </select>
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price" value="{{ $event_detail['price']}}">
                 @foreach($event->images as $image)
                     <img src="{{ asset('storage/'.$image['image']) }}">
                 @endforeach
