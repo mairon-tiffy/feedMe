@@ -79,5 +79,8 @@
             </div>
             <button type='submit'>update</button>
         </form>
+        <form action="{{route('eventDetailcreate' , ['event_id' => $event['id']])}}" method="GET">
+            <button type='submit'> set the event date</button>
+        </form>
     </body>
 </html>
