@@ -22,9 +22,11 @@ class EventDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $event_id)
     {
         //
+        $request->session()->put('event_id', $event_id);
+
         return view('myeventdetailCreate');
     }
 
@@ -37,12 +39,12 @@ class EventDetailController extends Controller
     public function store(Request $request)
     {
         //eventID取得
-        $id = $request->event_id;
-        var_dump($id);exit;
+        $event_id = $request->session()->pull('event_id');
+        // var_dump($event_id);exit;
 
         $event_detail = new \App\Models\EventDetail;
 
-        $event_detail->event_id	 = $id; //event_idを取得して入れる
+        $event_detail->event_id	 = $event_id;
         $event_detail->number_from = $request->number_from;
         $event_detail->number_to = $request->number_to;
         $event_detail->avalable_date = $request->avalable_date;
@@ -52,6 +54,8 @@ class EventDetailController extends Controller
         $event_detail->event_type = $request->event_type;
 
         $event_detail->save();
+
+        return redirect()->to('events/'.$event_id.'/edit');
 
     }
 
