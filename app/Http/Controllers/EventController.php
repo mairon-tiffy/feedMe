@@ -23,8 +23,8 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::
-        //  ->where('use_id', '=', \Auth::id())
-            where('user_id', '=', 1)
+            where('use_id', '=', \Auth::id())
+            // where('user_id', '=', 1)
             ->whereNull('deleted_at')
             ->get();
 
@@ -65,8 +65,8 @@ class EventController extends Controller
             $event = new \App\Models\Event;
 
             // 値の登録
-            // $event->user_id = \Auth::id();
-            $event->user_id = 1;
+            $event->user_id = \Auth::id();
+            // $event->user_id = 1;
             $event->title = $request->title;
             $event->content = $request->content;
             $event->currecy_type = $request->currecy_type;
@@ -192,8 +192,18 @@ class EventController extends Controller
         // $img = Image::where('event_id', $id)->firstOrFail();
             // $img = $event->images[];
             // echo '<pre>';var_dump($img);exit;echo '</pre>';
+
+        $event_details = EventDetail::
+            where('event_id', '=', $id)
+            ->whereNull('deleted_at')
+            ->get();
+
+        // dd($event_details);
         
-            return view('myeventUpdate', compact('event'));
+
+
+        
+            return view('myeventUpdate', compact('event','event_details'));
 
 
 

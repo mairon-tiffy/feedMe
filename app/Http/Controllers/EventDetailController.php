@@ -12,9 +12,22 @@ class EventDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id)
     {
         //
+
+        //eventID取得
+        $event_id = $id;
+
+        $event_details = EventDetail::
+            where('event_id', '=', $event_id)
+            ->whereNull('deleted_at')
+            ->get();
+
+        // var_dump($event_details);exit;
+        
+
+        return view('myeventUpdate', compact('event_details'));
     }
 
     /**
@@ -68,6 +81,10 @@ class EventDetailController extends Controller
     public function show($id)
     {
         //
+        return view('myeventdetailShow', [
+            'eventDetail' => EventDetail::findOrFail($id)
+        ]);
+
     }
 
     /**

@@ -82,5 +82,11 @@
         <form action="{{route('eventDetailcreate' , ['event_id' => $event['id']])}}" method="GET">
             <button type='submit'> set the event date</button>
         </form>
+
+        <div class="event_details_index">
+            @foreach($event_details as $event_detail)
+                {{ $event_detail['avalable_time']}}
+            @endforeach
+        </div>
     </body>
 </html>
