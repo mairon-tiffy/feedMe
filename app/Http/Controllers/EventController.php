@@ -23,8 +23,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::
-            where('use_id', '=', \Auth::id())
-            // where('user_id', '=', 1)
+            where('user_id', '=', \Auth::id())
             ->whereNull('deleted_at')
             ->get();
 
@@ -66,6 +65,7 @@ class EventController extends Controller
 
             // 値の登録
             $event->user_id = \Auth::id();
+            // dd($event->user_id);
             // $event->user_id = 1;
             $event->title = $request->title;
             $event->content = $request->content;
@@ -148,8 +148,9 @@ class EventController extends Controller
         });
 
         // 一覧にリダイレクト
-        return redirect()->to('events/');
-    }
+        // return redirect()->to('events/');
+        return redirect()->to('events/'.$id.'/edit');
+        }
 
     /**
      * Display the specified resource.

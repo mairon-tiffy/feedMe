@@ -85,7 +85,7 @@
 
         <div class="event_details_index">
             @foreach($event_details as $event_detail)
-                {{ $event_detail['avalable_time']}}
+                <a href="{{ route('eventdetails.edit',['eventdetail' => $event_detail['id']])}}">{{ $event_detail['avalable_time']}}<br></a>
             @endforeach
         </div>
     </body>

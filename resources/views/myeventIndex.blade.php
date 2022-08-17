@@ -23,7 +23,7 @@
     <body>
         @foreach($events as $event)
         <div class="eventIndex_container">
-            <a href="{{ route('events.edit',['event' => $event['id']])}}">update</a>
+            <a href="{{ route('events.edit',['event' => $event['id'])}}">update</a>
         </div>
         @endforeach
     </body>
