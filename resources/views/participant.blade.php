@@ -23,19 +23,12 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
     <body>
-        <form action="{{route('participants.store')}}" method="POST">
-        @csrf
-            <div class="participant_container">
+        <div class="participant_container">
+            <p>参加登録が完了しました。</p>
+            <label for="title">Title of your event</label>
+            
+        </div>
 
-                Event type : {{ $eventDetail['avalable_date']}}<br>
-                <input type="number" name="number">
-                @error('number')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-
-
-                <button type='submit'> send</button>
-        </form>
     </body>
 </html>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\TopController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventDetailController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ResultController;
 
 /*
@@ -41,5 +42,6 @@ Route::get('/users/userShow', [UserController::class, 'show'])->name('userShow')
 Route::resource('users', UserController::class);
 Route::get('/chat/message/{host_id}', [ChatController::class, 'message'])->name('message');
 Route::resource('chat', ChatController::class);
+Route::resource('participants', ParticipantController::class);
 
 
