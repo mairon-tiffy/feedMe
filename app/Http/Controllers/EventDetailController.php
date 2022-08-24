@@ -15,19 +15,20 @@ class EventDetailController extends Controller
     public function index(Request $request, $id)
     {
         //
+        // dd('aaa');
 
         //eventID取得
-        $event_id = $id;
+        // $event_id = $id;
 
-        $event_details = EventDetail::
-            where('event_id', '=', $event_id)
-            ->whereNull('deleted_at')
-            ->get();
+        // $event_details = EventDetail::
+        //     where('event_id', '=', $event_id)
+        //     ->whereNull('deleted_at')
+        //     ->get();
 
-        // var_dump($event_details);exit;
+        // // var_dump($event_details);exit;
         
 
-        return view('myeventUpdate', compact('event_details'));
+        // // return view('myeventUpdate', compact('event_details'));
     }
 
     /**
@@ -83,6 +84,7 @@ class EventDetailController extends Controller
         //
         $request->session()->put('event_detail_id', $id);
 
+
         return view('myeventdetailShow', [
             'eventDetail' => EventDetail::findOrFail($id)
         ]);
@@ -98,6 +100,15 @@ class EventDetailController extends Controller
     public function edit($id)
     {
         //
+        // dd('edit');
+        $event_detail = EventDetail::findOrFail($id);
+
+        // dd($event_detail);
+        
+
+
+        
+            return view('myeventdetailUpdate', compact('event_detail'));
     }
 
     /**

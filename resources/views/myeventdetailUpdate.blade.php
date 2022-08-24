@@ -21,19 +21,72 @@
         </style>
     </head>
     <body>
+    <form action="{{ route('eventdetails.update' , ['eventdetail' => $event_detail['id']]) }}" method="POST">
+        @csrf
+        @method('PATCH')
             <div class="event_container">
-                <label for="title">【Event_show】Title of your event</label>
-                    {{ $event['title']}}
+                <label for="title">Title of your event</label>
+                <input type="text" id="title" name="title">
+                @error('title')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label for="event_type">Type of the event</label>
+                    <select name="event_type">
+                        <option value="0" {{ $event_detail['event_type'] == "0" ? 'selected' : '' }}>Dinner</option>
+                        <option value="1" {{ $event_detail['event_type'] == "1" ? 'selected' : '' }}>Lunch</option>
+                        <option value="2" {{ $event_detail['event_type'] == "2" ? 'selected' : '' }}>Brunch</option>
+                        <option value="3" {{ $event_detail['event_type'] == "3" ? 'selected' : '' }}>Breakfast</option>
+                        <option value="4" {{ $event_detail['event_type'] == "4" ? 'selected' : '' }}>Tea time</option>
+                        <option value="5" {{ $event_detail['event_type'] == "5" ? 'selected' : '' }}>Picnic</option>
+                        <option value="6" {{ $event_detail['event_type'] == "6" ? 'selected' : '' }}>Others</option>
+                    </select>
+                <label for="number">Number of the guest</label>
+                    <input type="number" name="number_from">
 
-            <form action="{{route('message' , ['host_id' => $event['user_id']])}}" method="GET">
-                <button type='submit'>chat to host</button>
-            </form>
+                    @error('number_from')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
 
-            <div class="event_details_index">
-                @foreach($event_details as $event_detail)
-                    <a href="{{ route('eventdetails.show',['eventdetail' => $event_detail['id']])}}">{{ $event_detail['avalable_time']}}<br></a>
-                @endforeach
+                    to<input type="number" name="number_to">
+
+                    @error('number_to')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+
+                <label for="place">Place</label>
+                <input type="text" id="place" name="place">
+                @error('text')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                
             </div>
+            <div class="schedule">
+                <label for="avalable_date">date of the event</label>
+                <input type="date" id="avalable_date" name="avalable_date">
+                @error('avalable_date')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+                <label for="avalable_time">time of the event</label>
+                <input type="time" id="avalable_time" name="avalable_time">
+                @error('avalable_time')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+            </div>
+            <div class="payment">
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price">
+                @error('price')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+
+            <button type='submit'>submit</button>
+    </form>
 
 
     </body>

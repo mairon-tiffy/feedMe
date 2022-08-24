@@ -33,7 +33,7 @@ require __DIR__.'/auth.php';
 Route::get('/top', [TopController::class, 'show']);
 Route::post('/top', [TopController::class, 'search'])->name('search');
 Route::resource('events', EventController::class);
-Route::get('/eventdetails/{event_id}/edit', [EventDetailController::class, 'index']);
+// Route::get('/eventdetails/{event_id}/edit', [EventDetailController::class, 'index']);
 Route::get('/eventdetails/create/{event_id}', [EventDetailController::class, 'create'])->name('eventDetailcreate');
 Route::resource('eventdetails', EventDetailController::class);
 Route::get('/users/firstChange', [UserController::class, 'firstChange'])->name('firstChange');

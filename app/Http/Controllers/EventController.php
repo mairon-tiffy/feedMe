@@ -27,9 +27,6 @@ class EventController extends Controller
             ->whereNull('deleted_at')
             ->get();
 
-        // dd($events);
-        
-
         return view('myeventIndex', compact('events'));
     }
 
@@ -52,11 +49,8 @@ class EventController extends Controller
     public function store(EventRequest $request)
     {
         // var_dump($request->title);exit;
-        // dd($request->file('files'));
         
-
-
-        DB::transaction(function() use($request){
+        $event_id = DB::transaction(function() use($request){
 
             
             //☆Eventテーブル登録処理
@@ -65,8 +59,6 @@ class EventController extends Controller
 
             // 値の登録
             $event->user_id = \Auth::id();
-            // dd($event->user_id);
-            // $event->user_id = 1;
             $event->title = $request->title;
             $event->content = $request->content;
             $event->currecy_type = $request->currecy_type;
@@ -76,81 +68,41 @@ class EventController extends Controller
             // 保存
             $event->save();
 
-
-            //☆EventDetailテーブル登録処理
-
             //eventID取得
             $id = $event->id;
-            // var_dump($id);
-
-            // $event_detail = new \App\Models\EventDetail;
-            // $event_detail->event_id	 = $id; //event_idを取得して入れる
-            // $event_detail->number_from = $request->number_from;
-            // $event_detail->number_to = $request->number_to;
-            // $event_detail->avalable_date = $request->avalable_date;
-            // $event_detail->avalable_time = $request->avalable_time;
-            // $event_detail->place = $request->place;
-            // $event_detail->price = $request->price;
-            // $event_detail->event_type = $request->event_type;
-
-            // $event_detail->save();
 
 
             //画像登録処理
             //もし$formにimageデータがあったら
             if ($request->file('files')) {
                 $files = $request->file('files');
-                // dd($files);
                 
                 foreach($files as $file){
-                        $image = new \App\Models\Image;
+                    $image = new \App\Models\Image;
 
-                        // var_dump($file);exit;
+                    $extension = $file->clientExtension();
+                    // var_dump($extension);exit;
 
-                        $extension = $file->clientExtension();
-                        // var_dump($extension);exit;
+                    $file_token = Str::random(32);
+                    $filename = $file_token . '.' . $extension;
 
-                        $file_token = Str::random(32);
-                        $filename = $file_token . '.' . $extension;
+                    $file->storeAS('public',$filename);
 
-                        $file->storeAS('public',$filename);
-                        // var_dump($file);exit;
+                    // $fileにイメージデータを格納する
+                    $image->event_id = $id;
 
+                    $image->image = $filename;
 
-                        // $fileにイメージデータを格納する
-                        $image->event_id = $id;
-                        // $file = $request->file('image');
-                        // var_dump($file);exit;
-
-                        // getClientOrientalExtension()でファイルの拡張子を取得する
-                        // $extension = $file->getClientOriginalExtension();
-                        // $extension = $file->clientExtension();
-                        // var_dump($extension);exit;
-
-                        // $file_token = Str::random(32);
-                        // $filename = $file_token . '.' . $extension;
-                        // var_dump($filename);exit;
-                        $image->image = $filename;
-                        // 表示を行うときに画像名が必要になるため、ファイル名を再設定
-                        // $form['image'] = $filename;
-                        // $file->move('uploads/books', $filename);
-
-                        $image->save();
-                    }
-                    // echo '<pre>';var_dump($image);echo '</pre>';exit;
+                    $image->save();
                 }
-
-            
-        //     
-
-
-
+            }
+            return $id;
         });
-
-        // 一覧にリダイレクト
-        // return redirect()->to('events/');
-        return redirect()->to('events/'.$id.'/edit');
-        }
+    
+    // 一覧にリダイレクト
+    // return redirect()->to('events/');
+    return redirect()->to('events/'.$event_id.'/edit');
+    }
 
     /**
      * Display the specified resource.
@@ -160,12 +112,22 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        // $event = Event::findOrFail($id);
-        // var_dump($event);exit;
+
+        $event_details = EventDetail::
+        where('event_id', '=', $id)
+        ->whereNull('deleted_at')
+        ->get();
+
 
         return view('myeventShow', [
             'event' => Event::findOrFail($id)
-        ]);
+        ],compact('event_details'));
+        
+
+    // var_dump($event_details);exit;
+
+    // return view('myeventShow', compact('event_details'));
+
     }
 
     /**
@@ -178,7 +140,6 @@ class EventController extends Controller
     {
         // dd($event);
         $event = Event::findOrFail($id);
-        // var_dump($event);
         // dd($event->event_details[0]->price);
 
         //findOrFailを主キー以外で取得する（whereを使う）
@@ -199,14 +160,7 @@ class EventController extends Controller
             ->whereNull('deleted_at')
             ->get();
 
-        // dd($event_details);
-        
-
-
-        
-            return view('myeventUpdate', compact('event','event_details'));
-
-
+        return view('myeventUpdate', compact('event','event_details'));
 
     }
 
@@ -236,18 +190,20 @@ class EventController extends Controller
                 
             ]);
 
-            EventDetail::where('event_id', $id)->update([
-                'number_from' => $event_data['number_from'],
-                'number_to' => $event_data['number_to'],
-                'avalable_date' => $event_data['avalable_date'],
-                'avalable_time' => $event_data['avalable_time'],
-                'place' => $event_data['place'],
-                'price' => $event_data['price'],
-                'event_type' => $event_data['event_type'],
+            // EventDetail::where('event_id', $id)->update([
+            //     'number_from' => $event_data['number_from'],
+            //     'number_to' => $event_data['number_to'],
+            //     'avalable_date' => $event_data['avalable_date'],
+            //     'avalable_time' => $event_data['avalable_time'],
+            //     'place' => $event_data['place'],
+            //     'price' => $event_data['price'],
+            //     'event_type' => $event_data['event_type'],
                 
-            ]);
+            // ]);
         // 一覧にリダイレクト
-        return redirect()->to('events');
+        // return redirect()->to('myeventUpdate');
+        // dd('events/'.$id.'/edit');
+        return redirect()->to('events/'.$id.'/edit');
 
         });
     }
