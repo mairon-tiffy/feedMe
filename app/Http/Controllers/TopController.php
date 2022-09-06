@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Event;
+use App\Models\Image;
+use DB;
+
 // use App\Models\User;
 
 class TopController extends Controller
@@ -47,61 +50,66 @@ class TopController extends Controller
                 $join->on('detail.event_id', '=', 'events.id');
             });
 
-        if(!empty($posts)){
-            $events = $events->where('content', 'LIKE','%'.$posts.'%');
-        }
+            if(!empty($posts)){
+                $events = $events->where('content', 'LIKE','%'.$posts.'%');
+                // $events = $events->where('events.content', '=',$posts);
+            }
+            
+            // if($cuisineType !== ''){
+            if(!empty($cuisineType)){
+                $events = $events->where('cuisine_type', '=',$cuisineType);
+            }
+            
+            // if($eventType !== ''){
+            if(!empty($eventType)){
+                $events = $events->where('event_type', '=',$eventType);
+            }
+            
+            if(!empty($specialDiet)){
+                $events = $events->where('special_diet', '=',$specialDiet);
+            }
+            
+            if(!empty($date)){
+                $events = $events->where('avalable_date', '=',$date);
+            }
+            
+            
+            
+            
+            // $events = EVENT::select('events.*','detail.*')
+            //     ->join('event_details as detail', function($join) {
+                //         $join->on('detail.event_id', '=', 'events.id');
+                //     })
+                //     ->where('cuisine_type', '=',$cuisineType)
+                //     // ->where('number_from', '<=',$guest,'>=','number_to')
+                //     ->where('event_type', '=',$eventType)
+                //     ->where('special_diet', '=',$specialDiet)
+                //     ->where('avalable_date', '=',$date)
+                //     ->get();
 
-        if($cuisineType !== ''){
-            $events = $events->where('cuisine_type', '=',$cuisineType);
-        }
-
-        if(!empty($eventType)){
-            $events = $events->where('event_type', '=',$eventType);
-        }
-
-        if(!empty($specialDiet)){
-            $events = $events->where('special_diet', '=',$specialDiet);
-        }
-
-        if(!empty($date)){
-            $events = $events->where('avalable_date', '=',$date);
-        }
-
-
-
-        
-        // $events = EVENT::select('events.*','detail.*')
-        //     ->join('event_details as detail', function($join) {
-        //         $join->on('detail.event_id', '=', 'events.id');
-        //     })
-        //     ->where('cuisine_type', '=',$cuisineType)
-        //     // ->where('number_from', '<=',$guest,'>=','number_to')
-        //     ->where('event_type', '=',$eventType)
-        //     ->where('special_diet', '=',$specialDiet)
-        //     ->where('avalable_date', '=',$date)
-        //     ->get();
-
-        $events = $events->get();
-        // $events = $events->toSql();
-
-        // echo '<pre>';
-        // var_dump($events);exit;
-        // echo '</pre>';
+                
+            $events = $events->get();
+            // $events = $events->toSql();
+            // dd($events);
 
             // $eventType = [    
             //     '0' => 'Dinner',
-            //     '1' =>'Lunch',
+            //     '1' => 'Lunch',
             //     '2' => 'Brunch',
             //     '3' => 'Breakfast',
             //     '4' => 'Tea time',
             //     '5' => 'Picnic',
             //     '6' => 'Others',
             // ];
+            // dd($eventType);
+
+                
 
 
-            // echo('<pre>');
-            // var_dump($events);exit;
-            // echo('</pre>');
+            // $image = IMAGE::select('image')
+            // ->where('event_id', '=', events.id)
+            // ->get();
+
 
             return view('top', compact('events'));
     }
