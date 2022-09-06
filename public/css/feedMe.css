@@ -1,0 +1,25 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: auto;
+}
+
+
+/* Top 画面 */
+.message {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 60px;
+    background-image: url(../img/gathering1.jpg);
+}
+
+.message p{
+  font-size: 20px;
+}
+
+.search{
+  text-align: center;
+}
+
+.search input, .search select{
+  margin-right: 60px;
+}
